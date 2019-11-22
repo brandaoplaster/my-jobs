@@ -29,6 +29,8 @@ gem 'bootsnap', '>= 1.1.0', require: false
 group :test do
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
+  gem "factory_bot_rails", "~> 4.0"
+  gem 'ffaker'
 end
 
 group :development, :test do
