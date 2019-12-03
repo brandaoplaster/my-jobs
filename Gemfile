@@ -26,9 +26,18 @@ gem 'jbuilder', '~> 2.5'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
+group :test do
+  gem 'cucumber-rails', require: false
+  gem 'database_cleaner'
+  gem "factory_bot_rails", "~> 4.0"
+  gem 'selenium-webdriver', '~> 3.0'
+  gem 'rspec-expectations', '~> 3.4'
+end
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'ffaker'
 end
 
 group :development do
