@@ -30,6 +30,8 @@ group :test do
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
   gem "factory_bot_rails", "~> 4.0"
+  gem 'selenium-webdriver', '~> 3.0'
+  gem 'rspec-expectations', '~> 3.4'
 end
 
 group :development, :test do
