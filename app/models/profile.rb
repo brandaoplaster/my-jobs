@@ -4,4 +4,5 @@ class Profile < ApplicationRecord
   has_one_attached :photo
 
   validates :title, :name, presence: true
+  validates :photo, file: { max_size_in_bytes: 3000, mime_types: [:jpg, :png] }
 end
