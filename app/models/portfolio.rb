@@ -5,6 +5,7 @@ class Portfolio < ApplicationRecord
   has_many :blocks
   has_many :experiences
   has_many :skills
+  has_many :languages
 
   validates :slug, presence: true, uniqueness: true
   validates :tags, length: { in: 0..MAX_NUMBER_OF_TAGAS, messages: "can't have  more  that #{MAX_NUMBER_OF_TAGAS} tags" }
