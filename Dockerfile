@@ -18,7 +18,7 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
 
 
 # Set the path
-ENV INSTALL_PATH /my-jobs
+ENV INSTALL_PATH /portfolio-creator
 
 # Create directory
 RUN mkdir -p $INSTALL_PATH

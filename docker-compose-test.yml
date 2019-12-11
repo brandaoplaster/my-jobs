@@ -14,7 +14,7 @@ services:
     build: .
     command: bash start
     volumes:
-      - '.:/my-jobs'
+      - '.:/portfolio-creator'
       - 'box:/box'
     environment:
       - SELENIUM_HOST=selenium

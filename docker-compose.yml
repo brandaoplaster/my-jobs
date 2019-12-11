@@ -14,7 +14,7 @@ services:
     ports:
       - '3000:3000'
     volumes:
-      - '.:/my-jobs'
+      - '.:/portfolio-creator'
       - 'box:/box'
     stdin_open: true
     tty: true
