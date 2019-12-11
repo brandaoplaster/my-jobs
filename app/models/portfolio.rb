@@ -2,12 +2,18 @@ class Portfolio < ApplicationRecord
   MAX_NUMBER_OF_TAGAS = 4
 
   belongs_to :user
+  has_one :profile
+  has_one :about
   has_many :blocks
+  has_many :portfolio_tags
+  has_many :tags, through: :portfolio_tags
   has_many :experiences
+  has_many :hobbies
   has_many :skills
   has_many :languages
   has_many :socials
   has_many :contacts
+  has_many :additional_informations
 
   validates :slug, presence: true, uniqueness: true
   validates :tags, length: { in: 0..MAX_NUMBER_OF_TAGAS, messages: "can't have  more  that #{MAX_NUMBER_OF_TAGAS} tags" }
@@ -22,5 +28,4 @@ class Portfolio < ApplicationRecord
     avatars_list = Portfolio.temp_avatars.keys
     self.temp_avatar = avatars_list
   end
-
 end
