@@ -7,8 +7,9 @@ class PortfoliosController < ApplicationController
   end
 
   def create
-    slug_generator = PortfolioSlugGeneratorService.new().call
-    @portfolio = current_user.portfolios.create(slug: slug_generator)
+    build_portfolio
+    authorize @portfolio
+    @portfolio.save
     redirect_to edit_portfolios_path(@portfolio)
   end
 
@@ -18,6 +19,16 @@ class PortfoliosController < ApplicationController
   end
 
   private
+
+  def build_portfolio
+    @portfolio ||= portfolio_scope.build
+    @portfolio.attributes = portfolio_params
+  end
+
+  def portfolio_params
+    return {} unless params.has_key?(:portfolio)
+    params.require(:portfolio).permit(:slug, :listed, :active, :remote_ok)
+  end
 
   def load_portfolio
     @portfolio = portfolio_scope.find(params[:id])
