@@ -14,11 +14,24 @@ class PortfoliosController < ApplicationController
   end
 
   def edit
-    @portfolio = policy_scope(Portfolio).find(params[:id])
     authorize @portfolio
   end
 
+  def update
+    build_portfolio
+    authorize @portfolio
+    save_and_render
+  end
+
   private
+
+  def save_and_render
+    if @portfolio.save
+      head :ok
+    else
+      render json: { errors: @portfolio.errors.full_messages, portfolio: @portfolio.reload }, status: :unprocessable_entity
+    end
+  end
 
   def build_portfolio
     @portfolio ||= portfolio_scope.build
