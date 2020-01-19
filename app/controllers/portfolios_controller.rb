@@ -1,9 +1,9 @@
 class PortfoliosController < ApplicationController
   before_action :load_portfolios, only: :index
+  before_action :laod_portfolio, only: [:edit, :update]
 
   def index
     authorize(Portfolio)
-    @portfolios = policy_scope(Portfolio)
   end
 
   def create
@@ -15,5 +15,19 @@ class PortfoliosController < ApplicationController
   def edit
     @portfolio = policy_scope(Portfolio).find(params[:id])
     authorize @portfolio
+  end
+
+  private
+
+  def load_portfolio
+    @portfolio = portfolio_scope.find(params[:id])
+  end
+
+  def load_portfolios
+    @portfolios = portfolio_scope.all
+  end
+
+  def portfolio_scope
+    policy_scope(Portfolio)
   end
 end
