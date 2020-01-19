@@ -23,6 +23,12 @@ class PortfoliosController < ApplicationController
     save_and_render
   end
 
+  def show
+    @portfolio = Portfolio.find(params[:id])
+    authorize @portfolio
+    render json: { portfolio: @portfolio }, include: { tags: { only: [:id, :title] } }, status: :ok
+  end
+
   private
 
   def save_and_render
