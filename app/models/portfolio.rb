@@ -1,6 +1,8 @@
 class Portfolio < ApplicationRecord
   MAX_NUMBER_OF_TAGAS = 4
 
+  before_validation :set_slug, on: :create
+
   belongs_to :user
   has_one :profile
   has_one :about
@@ -27,5 +29,12 @@ class Portfolio < ApplicationRecord
   def set_random_temp_avatar
     avatars_list = Portfolio.temp_avatars.keys
     self.temp_avatar = avatars_list
+  end
+
+  def set_slug
+    if self.slug.nill?
+      slug_generator = PortfolioSlugGeneratorService.new
+      self.slug = slug_generator.call
+    end
   end
 end
