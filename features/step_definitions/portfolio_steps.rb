@@ -34,3 +34,7 @@ end
 Então "é direcionado para a página de edição do portfólio" do
   expect(page).to have_current_path(edit_portfolio_path(@user.portfolios.last))
 end
+
+Dado "possui o portfólio com slug {string}" do |slug|
+  @portfolio = create(:portfolio, slug: slug, user_id: @user.id)
+end
