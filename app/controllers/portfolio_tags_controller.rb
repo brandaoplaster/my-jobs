@@ -7,7 +7,9 @@ class PortfolioTagsController < ApplicationController
   end
 
   def destroy
-
+    @portfolio_tag = portfolio_tags_scope.find_by(tag_id: params[:tag_id])
+    authorize @portfolio_tag
+    destroy_portfolio_tag || render_error("this tag couldn't be removed")
   end
 
   private
@@ -18,8 +20,22 @@ class PortfolioTagsController < ApplicationController
     end
   end
 
+  def destroy_portfolio_tag
+    if @portfolio_tag.destroy
+      head :ok
+    end
+  end
+
+  def render_error(message)
+    render json: { errors: message }, status: :unprocessable_entity
+  end
+
   def build_portfolio_tag
     @portfolio_tag = portfolio_tags_scope.build
     @portfolio_tag.tag_id = params[:tags_id]
+  end
+
+  def portfolio_tags_scope
+    Portfolio.find(params[:portfolio_id]).portfolio_tags
   end
 end
