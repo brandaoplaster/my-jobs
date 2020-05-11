@@ -57,7 +57,7 @@
 
 					<div class="row">
 						<div class="col l4 m8 s8">
-								<!--                            <Tags :portfolio-id="portfolio.id" :portfolio-tags="portfolio.tags"/>-->
+							<Tags :portfolio-id="portfolio.id" :portfolio-tags="portfolio.tags"/>
 						</div>
 						<div class="input-field col l2 offset-m1 m4 offset-s4 s4">
 							<label>
@@ -74,12 +74,12 @@
 </template>
 
 <script>
-
+	import Tags from './tags'
   const url = new URL(document.location);
 
 	export default {
 		name: "index",
-		comments: {},
+		components: { Tags },
 
 		data() {
 			return {
