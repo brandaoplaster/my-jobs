@@ -10,6 +10,11 @@ class BlocksController < ApplicationController
 		save_block || render_error
 	end
 
+	def destroy
+		@block = @portfolio.blocks.find(params[:id])
+		destroy_block || render_error
+	end
+
 	private
 
 	def build_block
@@ -27,6 +32,10 @@ class BlocksController < ApplicationController
 
 	def render_error
 		render json: { errors: @block.errors.full_messages }, status: :unprocessable_entity
+	end
+
+	def destroy_block
+		@block.destroy && head(:ok)
 	end
 
 	def load_portfolio
