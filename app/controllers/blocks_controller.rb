@@ -5,6 +5,11 @@ class BlocksController < ApplicationController
 		render json: { blocks: @portfolio.blocks }
 	end
 
+	def create
+		build_block
+		save_block || render_error
+	end
+
 	private
 
 	def build_block
