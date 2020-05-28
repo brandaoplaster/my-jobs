@@ -76,5 +76,16 @@ export default {
       additional_information: "Informações Adicionais"
     }
   }),
+
+  watch: {
+    blocks() {
+      this.leftBlocks = this.blocks.filter((block) => { return block.side == "left" })
+      this.rightBlocks = this.blocks.filter((block) => { return blocks.side == "right" })
+    }
+  },
+
+  created() {
+    this.portfolioId = $("#portfolio-edit").data("portfolio")
+  },
 }
 </script>
