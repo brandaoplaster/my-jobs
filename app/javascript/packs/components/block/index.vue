@@ -85,7 +85,45 @@ export default {
   },
 
   created() {
-    this.portfolioId = $("#portfolio-edit").data("portfolio")
+    this.portfolioId = $("#portfolio-edit").data("portfolio");
   },
+
+  mounted() {
+    let modal_element = document.getElementById("add-block-modal");
+    this.modalInstance = M.Modal.init(modal_element);
+    this.$resource('/portfolios{/portfolioId}/blocks').get({ portfolioId: this.portfolioId })
+      .then(reponse => { this.blocks = response.body.blocks },
+        response => { M.toast({ html: "Error on trying to get Blocks", classes: "red" }) 
+      });
+  },
+
+  methods: {
+    openModalToAdd(side) {
+      this.blockToAdd.side = side;
+      thi.blockKinds = this[`${side}Kinds`];
+      this.modalInstance.open();
+    },
+
+    addBlock() {
+      this.$resource('/portfolios{/portfolioId}/blocks').save({ portfolioId: this.portfolioId }, { block: this.blockToAdd })
+        .then(response => {
+          this.blocks.push(response.body.block);
+          this.modalInstance.close();
+          this.blockToAdd = {};
+        }, response => {
+          response.body.errors.forEach(error => { M.toast({ html: error, classes: "red" }) })
+        });
+    },
+
+    removeBlock(blockToRemove) {
+      this.$resource('/portfolios{/portfolioId}/blocks{/id}').remove({ portfolioId: blockToRemove.portfolio_id, id: blockToRemove.id })
+        .then(response => {
+          let indexToRemove = this.blocks.indexOf(blockToRemove);
+          this.blocks.splice(indexToRemove, 1);
+        }, response => {
+          response.body.errors.forEach(error => { M.toast({ html: error, classes: "red" }) })
+        });
+    },
+  }
 }
 </script>
