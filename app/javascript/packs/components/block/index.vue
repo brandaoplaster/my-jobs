@@ -47,12 +47,34 @@
         <a class="btn custom-gree" id="confirm-add-block" @click="addBlock(blockToAdd)">Adicionar</a>
       </div>
     </div>
-    
+
   </div>
 </template>
 
 <script>
 export default {
-  
+  data: () => ({
+    portfolioId: "",
+    blocks: [],
+    leftBlocks: [],
+    rightBlocks: [],
+    blockToAdd: { kind: "" },
+    blockKinds: {},
+    leftKinds: {
+      profile: "Perfil",
+      about: "Sobre mim",
+      contact: "Contato",
+      social: "Social",
+      additional_information: "Informações Adicionais"
+    },
+    rightKinds: {
+      experience: "Experiencia",
+      education: "Educação",
+      skill: "Habilidade",
+      hobby: "Hobby",
+      language: "Linguagem",
+      additional_information: "Informações Adicionais"
+    }
+  }),
 }
 </script>
