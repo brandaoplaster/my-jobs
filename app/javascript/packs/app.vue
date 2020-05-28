@@ -1,22 +1,19 @@
 <template>
-  <div id="app">
-    <p>{{ message }}</p>
+  <div>
+    <portfolio></portfolio>
+    <block></block>
   </div>
 </template>
 
 <script>
 export default {
-  data: function () {
-    return {
-      message: "Hello Vue!"
-    }
+  data: () => ({
+
+  }),
+
+  components: {
+    Portfolio: () => import('./components/portfolio'),
+    Block: () => import('./components/block'),
   }
 }
 </script>
-
-<style scoped>
-p {
-  font-size: 2em;
-  text-align: center;
-}
-</style>
