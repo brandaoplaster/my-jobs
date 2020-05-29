@@ -52,7 +52,30 @@
 </template>
 
 <script>
+  import Profile from '../portfolio_resources/profile'
+  import Education from '../portfolio_resources/education'
+  import AdditionalInformation from '../portfolio_resources/additional_information'
+  import About from '../portfolio_resources/about'
+  import Contact from '../portfolio_resources/contact'
+  import Experience from '../portfolio_resources/experience'
+  import Hobby from '../portfolio_resources/hobby'
+  import Language from '../portfolio_resources/language'
+  import Skill from '../portfolio_resources/skill'
+  import Social from '../portfolio_resources/social'
+
 export default {
+  components: {
+    Profile,
+    Education,
+    'additional_information': AdditionalInformation,
+    About,
+    Contact,
+    Experience,
+    Hobby,
+    Language,
+    Skill,
+    Social
+  },
   data: () => ({
     portfolioId: "",
     blocks: [],
