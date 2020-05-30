@@ -14,6 +14,19 @@ class PortfolioResourcesController < ApplicationController
     save_resource || render_error(resource.errors.full_message)
   end
 
+  def create
+    @resouce = build_portfolio_resource
+    authorize @resource.portfolio
+    @resource.attributes = portfolio_resource_params
+    save_resource || render_error(@resouce)
+  end
+
+  def destroy
+    @resource = load_protfolio_resource
+    authorize @resource.portfolio
+    destroy_resource || render_error("This resource can't be destroyed")
+  end
+
   private
   
     def save_resource
