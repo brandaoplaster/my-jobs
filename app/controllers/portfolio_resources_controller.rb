@@ -1,6 +1,19 @@
 class PortfolioResourcesController < ApplicationController
   before_action :load_portfolio
 
+  def index
+    @resource = load_protfolio_resources
+    authorize @portfolio, policy_class: PortfolioResourcePolicy
+    render_resource(@resource)
+  end
+
+  def update
+    @resource = load_protfolio_resource
+    authorize @resource.portfolio
+    @resource.attributes = portfolio_resource_params
+    save_resource || render_error(resource.errors.full_message)
+  end
+
   private
   
     def save_resource
