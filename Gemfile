@@ -20,7 +20,7 @@ gem "mini_magick"
 
 gem 'devise'
 
-gem 'pundit'
+gem 'pundit', "2.0"
 
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
