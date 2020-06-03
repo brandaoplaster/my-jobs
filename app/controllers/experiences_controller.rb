@@ -9,4 +9,8 @@ class ExperiencesController < ApplicationController
     def load_portfolio_resource
       @portfolio.experiences.find(params[:id])
     end
+
+    def build_portfolio_resource
+      @portfolio.experiences.build
+    end
 end
