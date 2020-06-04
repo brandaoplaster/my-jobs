@@ -62,5 +62,75 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: ["portfolioId"],
+
+  data: () => ({
+    experience: {},
+    experiences: []
+  }),
+
+  created() {
+    this.$resource("/portfolios{/id}/experiences")
+      .get({ id: this.portfolioId })
+      .then(
+        response => {
+          this.experiences = response.body.response;
+        },
+        response => {
+          M.toast({
+            html: "Ocorreu um erro ao carregar as Experências",
+            classes: "red"
+          });
+        }
+      );
+  },
+
+  mounted() {
+    let elems = document.querySelectorAll(".datepicker-experience");
+    let vue = this;
+    M.Datepicker.init(elems, {
+      format: "dd/mm/yy",
+      onClose: function() {
+        console.log(this);
+        let attribute = this.el.dataset.attribute;
+        vue.experience[attribute] = this.el.value;
+      }
+    });
+  },
+
+  methods: {
+    submit() {
+      this.$resource("/portfolios{/id}/experiences")
+        .save({ id: this.portfolioId }, { experience: this.experience })
+        .then(
+          response => {
+            this.experiences.push(response.body.resource);
+            this.experience = {};
+          },
+          response => {
+            response.body.errors.forEach(error => {
+              M.toast({ html: error, classes: "red" });
+            });
+          }
+        );
+    },
+
+    removeExperience(experience) {
+      this.$resource("/portfolios{/portfolioId}/experiences{/id}")
+        .remove({ portfolioId: this.portfolioId, id: experience.id })
+        .then(
+          response => {
+            let indexToRemove = this.experiences.indexOf(experience);
+            this.experiences.splice(indexToRemove, 1);
+          },
+          response => {
+            response.body.errors.forEach(error => {
+              M.toast({ html: error, classes: "red" });
+            });
+          }
+        );
+    },
+  }
+};
 </script>
