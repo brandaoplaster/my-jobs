@@ -2,12 +2,16 @@ class EducationsController < ApplicationController
 
   protected
 
+    def load_portfolio_resources
+      @portfolio.educations
+    end
+
     def load_portfolio_resource
-      @portfolio.education.find(params[:id])
+      @portfolio.educations.find(params[:id])
     end
 
     def build_portfolio_resource
-      @portfolio.education.build
+      @portfolio.educations.build
     end
 
     def portfolio_resource_params
