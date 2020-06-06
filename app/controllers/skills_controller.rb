@@ -2,6 +2,10 @@ class SkillsController < ApplicationController
 
   protected
 
+  def load_portfolio_resources
+    @portfolio.skills
+  end
+
   def load_portfolio_resource
     @portfolio.skills.find(params[:id])
   end
