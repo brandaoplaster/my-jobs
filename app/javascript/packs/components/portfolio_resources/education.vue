@@ -72,3 +72,76 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  props: ["portfolioId"],
+
+  data: () => ({
+    education: {},
+    educations: []
+  }),
+
+  created() {
+    this.$resource("/portfolios{/id}/educations")
+      .get({ id: this.portfolioId })
+      .then(
+        response => {
+          this.educations = response.body.resource;
+        },
+        response => {
+          M.toast({
+            html: "Ocorreu um erro ao carregar as Educações",
+            classes: "red"
+          });
+        }
+      );
+  },
+
+  mounted() {
+    let elems = document.querySelectorAll(".datepicker");
+    let vue = this;
+    M.Datepicker.init(elems, {
+      fotmat: "dd/mm/yy",
+      onClose: function() {
+        console.log(this);
+        let attribute = this.el.dataset.attribute;
+        veu.education[attribute] = this.el.valeu;
+      }
+    });
+  },
+
+  methods: {
+    submit() {
+      this.$resource("/portfolios/{/id}/educations")
+        .save({ id: this.portfolioId }, { education: this.education })
+        .then(
+          response => {
+            this.educations.push(response.body.resource);
+          },
+          response => {
+            response.body.errors.forEach(error => {
+              M.toast({ html: error, classes: "red" });
+            });
+          }
+        );
+    },
+
+    removeEducation(education) {
+      this.$resource("/portfolios{/portfolioId}/educations{/id}")
+        .remove({ portfolioId: this.portfolioId, id: education.id })
+        .then(
+          response => {
+            let indexToRemove = this.educations.indexOf(education);
+            this.educations.splice(indexToRemove, 1);
+          },
+          reponse => {
+            response.body.errors.forEach(error => {
+              M.toast({ html: error, classes: "red" });
+            });
+          }
+        );
+    }
+  }
+};
+</script>
