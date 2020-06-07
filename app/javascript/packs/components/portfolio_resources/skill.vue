@@ -45,3 +45,63 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  props: ["portfolioId"],
+
+  data: () => ({
+    skill: {},
+    skills: []
+  }),
+
+  created() {
+    this.$resource("/portfolios{/id}/skills")
+      .get({ id: this.portfolioId })
+      .then(
+        response => {
+          this.skills = response.body.resource;
+        },
+        response => {
+          M.toast({
+            html: "Ocorreu um erro ao carregar as Habilidades",
+            classes: "red"
+          });
+        }
+      );
+  },
+
+  methods: {
+    submit() {
+      this.$resource("/portfolios{/id}/skills")
+        .save({ id: this.portfolioId }, { skill: this.skill })
+        .then(
+          response => {
+            this.skills.push(response.body.resource);
+          },
+          response => {
+            response.body.errors.forEach(error => {
+              M.toast({ html: error, classes: "red" });
+            });
+          }
+        );
+    },
+
+    removeSkill(skill) {
+      this.$resource("/portfolios{/portfolios}/skills/{/id}")
+        .remove({ portfolioId: this.portfolioId, id: skill.id })
+        .then(
+          response => {
+            let indexToRemove = this.skills.indexOf(skill);
+            this.skills.splice(indexToRemove, 1);
+          },
+          response => {
+            response.body.errors.forEach(error => {
+              M.toast({ html: error, classes: "red" });
+            });
+          }
+        );
+    }
+  }
+};
+</script>
