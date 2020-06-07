@@ -2,6 +2,10 @@ class HobbiesController < ApplicationController
 
   protected
 
+  def load_portfolio_resources
+    @portfolio.hobbies
+  end
+
   def load_portfolio_resource
     @portfolio.hobbies.find(params[:id])
   end
