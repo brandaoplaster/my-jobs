@@ -45,3 +45,63 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  props: ["portfolioId"],
+
+  data: () => ({
+    hobby: {},
+    hobbies: []
+  }),
+
+  created() {
+    this.$resource("/portfolios{/id}/hobbies")
+      .get({ id: this.portfolioId })
+      .then(
+        response => {
+          this.hobbies = response.body.resource;
+        },
+        response => {
+          M.toast({
+            html: "Ocorreu um erro ao carregar os Hobbies",
+            classes: "red"
+          });
+        }
+      );
+  },
+
+  methods: {
+    submit() {
+      this.$resource("/portfolios{/id}/hobbies")
+        .save({ id: this.portfolioId }, { hobby: this.hobby })
+        .then(
+          response => {
+            this.hobbies.push(response.body.resource);
+          },
+          response => {
+            response.body.errors.forEach(error => {
+              M.toast({ html: error, classes: "red" });
+            });
+          }
+        );
+    },
+
+    removeHobby(hobby) {
+      this.$resource("/portfolios{/portfolioId}/hobbies{/id}")
+        .remove({ portfolioId: this.portfolioId, id: hobby.id })
+        .then(
+          response => {
+            let indexToRemove = this.hobbies.indexOf(hobby);
+            this.hobbies.splice(indexToRemove, 1);
+          },
+          response => {
+            response.body.errors.forEach(error => {
+              M.toast({ html: error, classes: "red" });
+            });
+          }
+        );
+    }
+  }
+};
+</script>
