@@ -2,6 +2,10 @@ class LanguagesController < ApplicationController
 
   protected
 
+  def load_portfolio_resources
+    @portfolio.languages
+  end
+
   def load_portfolio_resource
     @portfolio.languages.find(params[:id])
   end
