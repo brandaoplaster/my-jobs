@@ -2,6 +2,10 @@ class AboutsController < ApplicationController
 
   protected
 
+  def load_portfolio_resources
+    load_portfolio_resource
+  end
+
   def load_portfolio_resource
     @portfolio.about || @portfolio.create_about(description: "My description")
   end
