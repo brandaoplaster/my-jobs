@@ -24,7 +24,7 @@
         />
         <label class="active font_20 custom-grey-text text-darken-1">Porcentagem</label>
       </div>
-      
+
       <div class="input-field col l3 m3 s6">
         <button type="button" class="btn" id="add-language" @click="submit()">Adicionar</button>
       </div>
@@ -44,3 +44,63 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  props: ["portfolioId"],
+
+  data: () => ({
+    language: {},
+    languages: []
+  }),
+
+  created() {
+    this.$resource("/portfolios{/id}/languages")
+      .get({ id: this.portfolioId })
+      .then(
+        response => {
+          this.languages = response.body.resource;
+        },
+        response => {
+          M.toast({
+            html: "Ocorreu um erro ao carregar as Linguagens",
+            classes: "red"
+          });
+        }
+      );
+  },
+
+  methods: {
+    submit() {
+      this.$resource("/portfolios{/id}/languages")
+        .save({ id: this.portfolioId }, { language: this.language })
+        .then(
+          response => {
+            this.languages.push(response.body.resource);
+          },
+          response => {
+            response.body.errors.forEach(error => {
+              M.toast({ html: error, classes: "red" });
+            });
+          }
+        );
+    },
+
+    removeLanguage(language) {
+      this.$resource("/portfolios{/portfolioId}/languages{/id}")
+        .remove({ portfolioId: this.portfolioId, id: language.id })
+        .then(
+          response => {
+            let indexToRemove = this.languages.indexOf(language);
+            this.languages.splice(indexToRemove, 1);
+          },
+          response => {
+            response.body.errors.forEach(error => {
+              M.toast({ html: error, classes: "red" });
+            });
+          }
+        );
+    }
+  }
+};
+</script>
