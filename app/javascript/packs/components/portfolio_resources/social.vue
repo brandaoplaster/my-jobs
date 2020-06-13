@@ -31,7 +31,7 @@
             <img :src="`/assets/socials/${social.kind}.png`" width="12%" />
             <a :href="social.url" target="_blank">{{ relativePath(social.url) }}</a>
           </div>
-          
+
           <div class="col l1 m1 s1">
             <a class="fa fa-times grey-text remove-social" @click="removeSocial(social)"></a>
           </div>
@@ -40,3 +40,76 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  props: ["portfolioId"],
+
+  data: () => ({
+    social: {},
+    socials: [],
+    socialKinds: {
+      facebook: "Facebook",
+      twitter: "Twitter",
+      linkedin: "LinkedIn",
+      github: "Github",
+      instagram: "Instagram"
+    }
+  }),
+
+  created() {
+    this.$resource("/portfolios{/id}/socials")
+      .get({ id: this.portfolioId })
+      .then(
+        response => {
+          this.socials = response.body.resource;
+        },
+        response => {
+          M.toast({
+            html: "Ocorreu um erro ao carregar as Redes Sociais",
+            classes: "red"
+          });
+        }
+      );
+  },
+
+  methods: {
+    relativePath(url) {
+      let url_obj = new URL(url);
+      return url_obj.pathname;
+    },
+
+    submit() {
+      this.$resource("/portfolios{/id}/socials")
+        .save({ id: this.portfolioId }, { social: this.social })
+        .then(
+          response => {
+            this.socials.push(response.body.resource);
+            this.social = {};
+          },
+          response => {
+            response.body.errors.forEach(error => {
+              M.toast({ html: error, classes: "red" });
+            });
+          }
+        );
+    },
+
+    removeSocial(social) {
+      this.$resource("/portfolios{/portfolioId}/socials{/id}")
+        .remove({ portfolioId: this.portfolioId, id: social.id })
+        .then(
+          response => {
+            let indexToRemove = this.socials.indexOf(social);
+            this.socials.splice(indexToRemove, 1);
+          },
+          response => {
+            response.body.errors.forEach(error => {
+              M.toast({ html: error, classes: "red" });
+            });
+          }
+        );
+    }
+  }
+};
+</script>
