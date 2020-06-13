@@ -2,6 +2,10 @@ class SocialsController < PortfolioResourcesController
 
   protected
 
+  def load_portfolio_resources
+    @portfolio.socials
+  end
+
   def load_portfolio_resource
     @portfolio.socials.find(params[:id])
   end
