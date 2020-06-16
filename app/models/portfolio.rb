@@ -4,18 +4,19 @@ class Portfolio < ApplicationRecord
   before_validation :set_slug, on: :create
 
   belongs_to :user
-  has_one :profile
-  has_one :about
-  has_many :blocks
-  has_many :portfolio_tags
+  has_one :profile, :dependent => :destroy
+  has_one :about, :dependent => :destroy
+  has_many :blocks, :dependent => :destroy
+  has_many :portfolio_tags, :dependent => :destroy
   has_many :tags, through: :portfolio_tags
-  has_many :experiences
-  has_many :hobbies
-  has_many :skills
-  has_many :languages
-  has_many :socials
-  has_many :contacts
-  has_many :additional_informations
+  has_many :educations, :dependent => :destroy
+  has_many :experiences, :dependent => :destroy
+  has_many :hobbies, :dependent => :destroy
+  has_many :skills, :dependent => :destroy
+  has_many :languages, :dependent => :destroy
+  has_many :socials, :dependent => :destroy
+  has_many :contacts, :dependent => :destroy
+  has_many :additional_informations, :dependent => :destroy
 
   validates :slug, presence: true, uniqueness: true
   validates :tags, length: { in: 0..MAX_NUMBER_OF_TAGAS, messages: "can't have  more  that #{MAX_NUMBER_OF_TAGAS} tags" }
