@@ -3,7 +3,7 @@ class CreateProfiles < ActiveRecord::Migration[5.2]
     create_table :profiles do |t|
       t.string :title
       t.string :name
-      t.references :Portfolio, foreign_key: true
+      t.references :portfolio, foreign_key: true
 
       t.timestamps
     end
