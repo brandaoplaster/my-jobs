@@ -1,6 +1,11 @@
 class BlockPositionsController < ApplicationController
   before_action :load_portfolio
 
+  def update
+    @rebuild_blocks_positions = RebuildBlocksPositionsService.new(block_params["blocks"])
+    save_blocks_positions || render_old_position
+  end
+
   private
 
   def render_old_position
