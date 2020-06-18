@@ -2,6 +2,16 @@ class BlockPositionsController < ApplicationController
   before_action :load_portfolio
 
   private
+
+  def render_old_position
+    render json: { old_blocks: @portfolio.blocks }, status: :unprocessable_entity
+  end
+
+  def save_blocks_positions
+    if @rebuild_blocks_positions.call
+      head :ok
+    end
+  end
   
   def load_portfolio
     @portfolio = policy_scope(Portfolio).find(params[:portfolio_id])
