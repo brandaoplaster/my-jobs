@@ -1,4 +1,4 @@
-class HobbiesController < ApplicationController
+class HobbiesController < PortfolioResourcesController
 
   protected
 

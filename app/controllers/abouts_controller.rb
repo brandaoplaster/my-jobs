@@ -1,4 +1,4 @@
-class AboutsController < ApplicationController
+class AboutsController < PortfolioResourcesController
 
   protected
 

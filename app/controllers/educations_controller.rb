@@ -1,4 +1,4 @@
-class EducationsController < ApplicationController
+class EducationsController < PortfolioResourcesController
 
   protected
 

@@ -1,4 +1,4 @@
-class LanguagesController < ApplicationController
+class LanguagesController < PortfolioResourcesController
 
   protected
 
