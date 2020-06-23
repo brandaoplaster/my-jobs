@@ -19,4 +19,5 @@ Rails.application.routes.draw do
   end
   
   resources :tags, only: :index
+  get '/:slug', to: 'portfolios#show'
 end
