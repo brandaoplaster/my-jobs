@@ -25,6 +25,35 @@
       }
     }
 
+    .history {
+      padding-top: 10px;
+      margin-bottom: 0;
+      .time_box {
+        .date {
+          font-weight: 700;
+          font-size: 16px;
+          padding: 5px;
+        }
+      }
+      .company {
+        font-size: 19px;
+        font-weight: 700;
+      }
+      .professional_title {
+        font-size: 20px;
+        font-weight: 700;
+      }
+      .professional_description {
+        font-size: 18px;
+        font-weight: 700;
+      }
+      .custom-space {
+        margin-bottom: 6px;
+      }
+      .zero-bottom-space {
+        margin-bottom: 0px;
+      }
+    }
 
   }
 }
