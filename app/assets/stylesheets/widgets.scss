@@ -55,6 +55,30 @@
       }
     }
 
+    .percent {
+      padding-top: 10px;
+      margin-bottom: 0;
+      .box {
+        padding: 5px;
+        .title {
+          font-size: 18px;
+          font-weight: 700;
+        }
+      }
+      .custom-space {
+        margin-bottom: 10px;
+      }
+      .zero-bottom-space {
+        margin-bottom: 0px;
+      }
+      .stars {
+        margin-top: 4px;
+        i {
+          font-size: 26px;
+        }
+      }
+    }
+
   }
 }
 
