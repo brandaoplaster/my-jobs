@@ -12,7 +12,20 @@
       }
     }
 
-    
+    .profile {
+      padding-bottom: 0;
+      .name {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+      .title {
+        font-size: 18px;
+        font-weight: 700;
+      }
+    }
+
+
   }
 }
 
