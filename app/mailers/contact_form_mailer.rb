@@ -1,13 +1,18 @@
 class ContactFormMailer < ApplicationMailer
 
-  # Subject can be set in your I18n file at config/locales/en.yml
-  # with the following lookup:
-  #
-  #   en.contact_form_mailer.contact.subject
-  #
+  default from: 'brandaoplaster@gmail.com'
+  
   def contact
-    @greeting = "Hi"
-
-    mail to: "to@example.org"
+    @user = params[:user]
+    @email = params[:email]
+    @title = params[:title]
+    @description = params[:description]
+    @portfolio = params[:portfolio]
+ 
+    mail(
+      to: @user.email,
+      subject: 'Uma empresa te enviou uma mensagem em dev.onebitcode.com',
+      reply_to: @email,
+    )
   end
 end
