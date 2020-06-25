@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'contact_forms/create'
   root 'pages#home'
   devise_for :users
 
