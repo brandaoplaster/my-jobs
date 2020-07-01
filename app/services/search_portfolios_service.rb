@@ -10,6 +10,11 @@ module SearchPortfoliosService
 
     private
 
+    def perform_featured_search
+      @results[:featured] = @basic_search.where(featured: true).order("RANDOM()").limit(2)
+      @results[:general] = @basic_search.where(featured: false).page(@filters[:page])
+    end
+
     def search_by_tags
       @basic_search.joins(:tags).where!(tags: { title: @filters[:tag] })
     end
