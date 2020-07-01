@@ -18,5 +18,9 @@ module SearchPortfoliosService
       @basic_search.joins(:contact)
       @basic_search.where!("contacts.address_country = :place OR contacts.address_city = :place", place: @filters[:place])
     end
+
+    def search_by_remote_ok
+      @basic_search.where!(remote_ok: true)
+    end
   end
 end
