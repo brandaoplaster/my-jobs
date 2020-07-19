@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'search/index'
   root 'pages#home'
   devise_for :users
   resources :contact_forms, only: [:create]
