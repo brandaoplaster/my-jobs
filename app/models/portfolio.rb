@@ -29,6 +29,8 @@ class Portfolio < ApplicationRecord
 
   before_create :set_random_temp_avatar
 
+  paginates_per 5
+
   private
 
   def set_random_temp_avatar
