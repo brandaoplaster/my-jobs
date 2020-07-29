@@ -34,6 +34,8 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'moip2'
 
+gem 'whenever', require: false
+
 group :test do
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
