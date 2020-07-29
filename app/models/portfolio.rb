@@ -4,6 +4,7 @@ class Portfolio < ApplicationRecord
   before_validation :set_slug, on: :create
 
   belongs_to :user
+  has_one :order
   has_one :profile, :dependent => :destroy
   has_one :about, :dependent => :destroy
   has_many :blocks, :dependent => :destroy
