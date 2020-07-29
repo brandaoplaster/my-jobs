@@ -22,6 +22,12 @@ module MyJobs
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
 
+    config.generators.assets = false
+    config.generators.helper = false
+
+    # Set FactoryBot dir
+    config.generators.factory_bot dir: 'features/factories'
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
