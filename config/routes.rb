@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   get 'search/index'
   root 'pages#home'
   get :search, to: "search#index"
+  post '/webhooks', to: 'webhooks#webhooks'
   devise_for :users
 
   resources :contact_forms, only: [:create]
